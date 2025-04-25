@@ -1,5 +1,6 @@
 from litestar import Controller, get, post, delete, Response
 from litestar.di import Provide
+from advanced_alchemy.filters import LimitOffset
 from litestar.exceptions import HTTPException
 from typing import List
 from uuid import UUID
@@ -27,10 +28,10 @@ class AddressController(Controller):
         return address_service.to_schema(address, schema_type=AddressResponse)
     
     @get(path=ADDRESS_LIST_MINE, status_code=200)
-    async def get_my_addresss(self, current_user: User, address_service: AddressService) -> List[AddressResponse]:
-        addresses = await address_service.list(Address.user_id == current_user.id)
+    async def get_my_addresses_offset(self, current_user: User, address_service: AddressService, offset: int = 0, limit: int = 10) -> List[AddressResponse]:
+        addresses, _ = await address_service.list_and_count(Address.user_id == current_user.id, LimitOffset(offset=offset, limit=limit))
         return [address_service.to_schema(address, schema_type=AddressResponse) for address in addresses]
-    
+
     @delete(path=ADDRESS_DELETE, status_code=204)
     async def delete_my_address(self, current_user: User, address_service: AddressService, id: UUID) -> None:
         address = await address_service.get_one_or_none(Address.id == id)
