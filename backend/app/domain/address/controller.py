@@ -1,10 +1,7 @@
-from litestar import Controller, get, post, patch, delete, Request
+from litestar import Controller, get, post, delete, Response
 from litestar.di import Provide
-from litestar.params import Parameter
-from litestar.pagination import OffsetPagination
-from litestar.repository.filters import LimitOffset
 from litestar.exceptions import HTTPException
-from typing import Optional, List
+from typing import List
 from uuid import UUID
 
 from app.domain.address.services import AddressService, provide_address_service
