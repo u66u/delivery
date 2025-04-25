@@ -1,1 +1,4 @@
-ADD_ADDRESS = "/api/address/add"
+ADDRESS_BASE = "/api/address"
+ADDRESS_ADD = f"{ADDRESS_BASE}/add"
+ADDRESS_LIST_MINE = f"{ADDRESS_BASE}/mine"
+ADDRESS_DELETE = f"{ADDRESS_BASE}/{{id:uuid}}"

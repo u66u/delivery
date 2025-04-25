@@ -10,6 +10,7 @@ from app.domain.auth.urls import AUTH_LOGIN, AUTH_SIGNUP, AUTH_TG
 from app.domain.user.urls import USER_ME
 from app.settings.db import alchemy
 from app.settings.jwt import jwt_config
+from app.domain.address.urls import ADDRESS_ADD, ADDRESS_DELETE, ADDRESS_LIST_MINE, BASE_ADDRESS, MY_ADDRESSES
 
 async def current_user_from_token(token: Token, connection: ASGIConnection[Any, Any, Any, Any]) -> User | None:
     """Lookup current user from local JWT token.
@@ -49,5 +50,5 @@ def requires_active_user(connection: ASGIConnection[Any, Any, Any, Any], _: Base
 jwt_auth = JWTCookieAuth[User](
     retrieve_user_handler=current_user_from_token,
     token_secret=jwt_config.secret,
-    exclude=[AUTH_SIGNUP, AUTH_LOGIN, "/docs", AUTH_TG, USER_ME],
+    exclude=[AUTH_SIGNUP, AUTH_LOGIN, "/docs", AUTH_TG, USER_ME, ADDRESS_LIST_MINE, ADDRESS_ADD, ADDRESS_DELETE],
 )

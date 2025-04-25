@@ -64,5 +64,5 @@ class AuthController(Controller):
             user = await auth_service.create(data.model_dump(exclude_unset=False))
         data = auth_service.to_schema(user, schema_type=UserResponse)
         return Response(content=data, 
-                        headers={"X-Telegram-ID": str(data.tg_id)},
+                        headers={"X-Tg-Id": str(data.tg_id)},
                         cookies=[Cookie(key="tg_id", value=str(data.tg_id))])

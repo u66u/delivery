@@ -6,7 +6,6 @@ from app.services.backend_client import get_me, register_or_get_user_in_backend
 
 logger = logging.getLogger(__name__)
 
-# Create a router for the start command
 router = Router()
 
 def get_location_keyboard():
